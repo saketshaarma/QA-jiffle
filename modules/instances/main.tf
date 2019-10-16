@@ -43,8 +43,17 @@ resource "aws_instance" "instance_nginx_reverse_proxy" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_edge}"]
       subnet_id = "${element(var.public_subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size="${var.volume_size}"
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-Nginx-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-Nginx.${count.index}"
+        Name="${var.env_name}-Nginx-${count.index}"
         Environment="${var.env_name}"
 
       }
@@ -57,8 +66,17 @@ resource "aws_instance" "instance_capp" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_app}"]
       subnet_id = "${element(var.subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size="${var.volume_size}"
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-capp-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-capp.${count.index}"
+        Name="${var.env_name}-capp-${count.index}"
         Environment="${var.env_name}"
 
       }
@@ -71,8 +89,17 @@ resource "aws_instance" "instance_eapp" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_app}"]
       subnet_id = "${element(var.subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size="${var.volume_size}"
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-eapp-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-eapp.${count.index}"
+        Name="${var.env_name}-eapp-${count.index}"
         Environment="${var.env_name}"
 
       }
@@ -86,8 +113,17 @@ resource "aws_instance" "instance_eworker" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_app}"]
       subnet_id = "${element(var.subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size="${var.volume_size}"
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-eworker-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-eworker.${count.index}"
+        Name="${var.env_name}-eworker-${count.index}"
         Environment="${var.env_name}"
 
       }
@@ -101,8 +137,17 @@ resource "aws_instance" "instance_bastion" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_bastion}"]
       subnet_id = "${element(var.public_subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size=50
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-bastion-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-bastion.${count.index}"
+        Name="${var.env_name}-bastion-${count.index}"
         Environment="${var.env_name}"
 
       }
@@ -115,8 +160,17 @@ resource "aws_instance" "instance_QA_BUILD" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_infra}"]
       subnet_id = "${element(var.subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size="${var.volume_size}"
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-qa-build-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-qa-build.${count.index}"
+        Name="${var.env_name}-qa-build-${count.index}"
         Environment="${var.env_name}"
 
       }
@@ -129,8 +183,17 @@ resource "aws_instance" "instance_Redis" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_app}"]
       subnet_id = "${element(var.subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size="${var.volume_size}"
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-redis-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-redis.${count.index}"
+        Name="${var.env_name}-redis-${count.index}"
         Environment="${var.env_name}"
 
       }
@@ -143,8 +206,17 @@ resource "aws_instance" "instance_pgbouncer" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_pgbouncer}"]
       subnet_id = "${element(var.subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size=20
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-pgbouncer-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-pgbouncer.${count.index}"
+        Name="${var.env_name}-pgbouncer-${count.index}"
         Environment="${var.env_name}"
 
       }
@@ -157,8 +229,17 @@ resource "aws_instance" "instance_docs" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_infra}"]
       subnet_id = "${element(var.subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size="${var.volume_size}"
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-docs-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-docs.${count.index}"
+        Name="${var.env_name}-docs-${count.index}"
         Environment="${var.env_name}"
 
       }
@@ -171,8 +252,17 @@ resource "aws_instance" "instance_prometheous1" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_infra}"]
       subnet_id = "${element(var.public_subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size="${var.volume_size}"
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-prometheous1-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-prometheous1.${count.index}"
+        Name="${var.env_name}-prometheous1-${count.index}"
         Environment="${var.env_name}"
 
       }
@@ -185,8 +275,17 @@ resource "aws_instance" "instance_prometheous2" {
       key_name = "${var.key_name}"
       vpc_security_group_ids = ["${var.security_group_infra}"]
       subnet_id = "${element(var.public_subnet_id, count.index)}"
+      root_block_device {
+        volume_type="${var.volume_type}"
+        volume_size="${var.volume_size}"
+        delete_on_termination=false
+        encrypted = true
+      }
+      volume_tags = {
+        Name="${var.env_name}-prometheous2-${count.index}"
+      }
       tags = {
-        Name="${var.env_name}-prometheous2.${count.index}"
+        Name="${var.env_name}-prometheous2-${count.index}"
         Environment="${var.env_name}"
 
       }

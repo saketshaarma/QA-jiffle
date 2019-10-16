@@ -66,4 +66,5 @@ module "instances" {
   public_subnet_id = "${module.VPC.public_subnet}"
   subnet_id = "${module.VPC.private_subnet}"
   vpc_id = "${module.VPC.vpc_id}"
+  env_name = "${var.env_name}"
 }

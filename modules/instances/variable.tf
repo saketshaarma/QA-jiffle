@@ -18,6 +18,14 @@ variable "security_group_pgbouncer" {
   description = "Security Group PG Bouncer"
 }
 
+variable "volume_type" {
+  default = "gp2"
+}
+
+variable "volume_size" {
+  default = "500"
+}
+
 variable "key_name" {
   description = "Key Name"
 }
